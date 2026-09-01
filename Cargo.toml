@@ -1,0 +1,15 @@
+[package]
+name = "kp-irigasi"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+license = "MIT"
+repository = "https://github.com/saimskywalker/kp-irigasi"
+authors = ["Setyo Aji Imam Maliki <setyoaji98@gmail.com>"]
+description = "Indonesian irrigation design calculations (Kriteria Perencanaan KP series) in strict SI units"
+readme = "README.md"
+keywords = ["irrigation", "hydraulics", "civil-engineering", "indonesia"]
+categories = ["science", "mathematics"]
+
+[lints.rust]
+missing_docs = "warn"
