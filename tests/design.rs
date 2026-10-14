@@ -3,16 +3,16 @@
 //! Every expected value is hand calculated in the comment above the assertion.
 //! Units follow the crate convention: m, m², m/s, m³/s.
 
-use kp_irigasi::check::CheckStatus;
-use kp_irigasi::design::{
+use imaji_kp_hydraulics::check::CheckStatus;
+use imaji_kp_hydraulics::design::{
     design_channel, efficient_trapezoid, ChannelDesignInput, SectionProportion,
 };
-use kp_irigasi::error::KpError;
-use kp_irigasi::freeboard::{
+use imaji_kp_hydraulics::error::KpError;
+use imaji_kp_hydraulics::freeboard::{
     FixedFreeboard, FreeboardFn, FreeboardRule, FreeboardStep, FreeboardTable,
 };
-use kp_irigasi::uniform_flow::{FlowRegime, NormalDepthOptions, VelocityLimits};
-use kp_irigasi::units::{Discharge, Length, ManningN, SideSlope, Slope};
+use imaji_kp_hydraulics::uniform_flow::{FlowRegime, NormalDepthOptions, VelocityLimits};
+use imaji_kp_hydraulics::units::{Discharge, Length, ManningN, SideSlope, Slope};
 
 fn close(actual: f64, expected: f64, tolerance: f64) -> bool {
     (actual - expected).abs() <= tolerance

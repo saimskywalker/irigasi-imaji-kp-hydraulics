@@ -132,15 +132,15 @@ impl Trapezoid {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::section::{Section, Trapezoid};
-    /// use kp_irigasi::units::{Length, SideSlope};
+    /// use imaji_kp_hydraulics::section::{Section, Trapezoid};
+    /// use imaji_kp_hydraulics::units::{Length, SideSlope};
     ///
     /// // b = 2.0 m, m = 1.5, h = 1.0 m
     /// // A = (2.0 + 1.5 × 1.0) × 1.0 = 3.5 m²
     /// let section = Trapezoid::new(Length::new(2.0)?, SideSlope::new(1.5)?);
     /// let area = section.flow_area(Length::new(1.0)?)?;
     /// assert!((area.value() - 3.5).abs() < 1e-12);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub const fn new(bed_width: Length, side_slope: SideSlope) -> Self {
         Self {
@@ -187,15 +187,15 @@ impl Rectangle {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::section::{Rectangle, Section};
-    /// use kp_irigasi::units::Length;
+    /// use imaji_kp_hydraulics::section::{Rectangle, Section};
+    /// use imaji_kp_hydraulics::units::Length;
     ///
     /// // b = 1.2 m, h = 0.6 m: A = 0.72 m², P = 1.2 + 2 × 0.6 = 2.4 m
     /// let flume = Rectangle::new(Length::new(1.2)?);
     /// let g = flume.geometry(Length::new(0.6)?)?;
     /// assert!((g.area.value() - 0.72).abs() < 1e-12);
     /// assert!((g.wetted_perimeter.value() - 2.4).abs() < 1e-12);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub const fn new(width: Length) -> Self {
         Self { width }
@@ -233,15 +233,15 @@ impl Triangle {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::section::{Section, Triangle};
-    /// use kp_irigasi::units::{Length, SideSlope};
+    /// use imaji_kp_hydraulics::section::{Section, Triangle};
+    /// use imaji_kp_hydraulics::units::{Length, SideSlope};
     ///
     /// // m = 1.0, h = 0.5 m: A = 1.0 × 0.5² = 0.25 m², T = 2 × 1.0 × 0.5 = 1.0 m
     /// let drain = Triangle::new(SideSlope::new(1.0)?);
     /// let g = drain.geometry(Length::new(0.5)?)?;
     /// assert!((g.area.value() - 0.25).abs() < 1e-12);
     /// assert!((g.top_width.value() - 1.0).abs() < 1e-12);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub const fn new(side_slope: SideSlope) -> Self {
         Self { side_slope }
