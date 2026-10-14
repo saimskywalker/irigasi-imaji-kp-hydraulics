@@ -56,8 +56,8 @@ pub const CIPOLETTI_COEFFICIENT: f64 = 1.859;
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::sharp_crested_weir_discharge;
-/// use kp_irigasi::units::{Length, Ratio};
+/// use imaji_kp_hydraulics::structures::sharp_crested_weir_discharge;
+/// use imaji_kp_hydraulics::units::{Length, Ratio};
 ///
 /// // Cd = 0.62, b = 1.50 m, H = 0.30 m
 /// // Q = (2/3) × 0.62 × 1.50 × sqrt(2 × 9.81) × 0.30^1.5
@@ -68,7 +68,7 @@ pub const CIPOLETTI_COEFFICIENT: f64 = 1.859;
 ///     Length::new(0.30)?,
 /// )?;
 /// assert!((q.value() - 0.451256).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn sharp_crested_weir_discharge(
     discharge_coefficient: Ratio,
@@ -104,13 +104,13 @@ pub fn sharp_crested_weir_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::rehbock_coefficient;
-/// use kp_irigasi::units::Length;
+/// use imaji_kp_hydraulics::structures::rehbock_coefficient;
+/// use imaji_kp_hydraulics::units::Length;
 ///
 /// // H = 0.30 m, P = 0.60 m: Cd = 0.602 + 0.083 × 0.5 = 0.6435
 /// let cd = rehbock_coefficient(Length::new(0.30)?, Length::new(0.60)?)?;
 /// assert!((cd.value() - 0.6435).abs() < 1e-12);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn rehbock_coefficient(head: Length, crest_height: Length) -> Result<Ratio> {
     let h = non_negative("head", head.value())?;
@@ -135,8 +135,8 @@ pub fn rehbock_coefficient(head: Length, crest_height: Length) -> Result<Ratio> 
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::broad_crested_weir_discharge;
-/// use kp_irigasi::units::{Length, Ratio};
+/// use imaji_kp_hydraulics::structures::broad_crested_weir_discharge;
+/// use imaji_kp_hydraulics::units::{Length, Ratio};
 ///
 /// // Cd = 0.93, Cv = 1.02, b = 2.00 m, h1 = 0.45 m
 /// // 1.705 × 0.93 × 1.02 × 2.00 × 0.45^1.5
@@ -148,7 +148,7 @@ pub fn rehbock_coefficient(head: Length, crest_height: Length) -> Result<Ratio> 
 ///     Length::new(0.45)?,
 /// )?;
 /// assert!((q.value() - 0.976404).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn broad_crested_weir_discharge(
     discharge_coefficient: Ratio,
@@ -183,8 +183,8 @@ pub fn broad_crested_weir_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::free_orifice_discharge;
-/// use kp_irigasi::units::{Area, Length, Ratio};
+/// use imaji_kp_hydraulics::structures::free_orifice_discharge;
+/// use imaji_kp_hydraulics::units::{Area, Length, Ratio};
 ///
 /// // Cd = 0.62, A = 0.20 m², H = 0.80 m
 /// // Q = 0.62 × 0.20 × sqrt(2 × 9.81 × 0.80) = 0.124 × 3.961817 = 0.491265 m³/s
@@ -194,7 +194,7 @@ pub fn broad_crested_weir_discharge(
 ///     Length::new(0.80)?,
 /// )?;
 /// assert!((q.value() - 0.491265).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn free_orifice_discharge(
     discharge_coefficient: Ratio,
@@ -230,8 +230,8 @@ pub fn free_orifice_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::submerged_orifice_discharge;
-/// use kp_irigasi::units::{Area, Length, Ratio};
+/// use imaji_kp_hydraulics::structures::submerged_orifice_discharge;
+/// use imaji_kp_hydraulics::units::{Area, Length, Ratio};
 ///
 /// // Cd = 0.80, A = 0.30 m², dh = 0.12 m
 /// // Q = 0.80 × 0.30 × sqrt(2 × 9.81 × 0.12) = 0.24 × 1.534405 = 0.368257 m³/s
@@ -241,7 +241,7 @@ pub fn free_orifice_discharge(
 ///     Length::new(0.12)?,
 /// )?;
 /// assert!((q.value() - 0.368257).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn submerged_orifice_discharge(
     discharge_coefficient: Ratio,
@@ -279,8 +279,8 @@ pub fn submerged_orifice_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::sluice_gate_discharge;
-/// use kp_irigasi::units::{Length, Ratio};
+/// use imaji_kp_hydraulics::structures::sluice_gate_discharge;
+/// use imaji_kp_hydraulics::units::{Length, Ratio};
 ///
 /// // mu = 0.62, K = 1.0 free flow, a = 0.25 m, b = 1.20 m, z = 0.50 m
 /// // Q = 1.0 × 0.62 × 0.25 × 1.20 × sqrt(2 × 9.81 × 0.50)
@@ -293,7 +293,7 @@ pub fn submerged_orifice_discharge(
 ///     Length::new(0.50)?,
 /// )?;
 /// assert!((q.value() - 0.582569).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn sluice_gate_discharge(
     discharge_coefficient: Ratio,
@@ -333,14 +333,14 @@ pub fn sluice_gate_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::cipoletti_weir_discharge;
-/// use kp_irigasi::units::Length;
+/// use imaji_kp_hydraulics::structures::cipoletti_weir_discharge;
+/// use imaji_kp_hydraulics::units::Length;
 ///
 /// // b = 0.50 m, H = 0.20 m: Q = 1.859 × 0.50 × 0.20^1.5
 /// //   = 0.9295 × 0.0894427 = 0.0831370 m³/s = 83.137 l/s
 /// let q = cipoletti_weir_discharge(Length::new(0.50)?, Length::new(0.20)?)?;
 /// assert!((q.as_litres_per_second() - 83.1370).abs() < 1e-3);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn cipoletti_weir_discharge(crest_width: Length, head: Length) -> Result<Discharge> {
     let b = positive("crest_width", crest_width.value())?;
@@ -368,15 +368,15 @@ pub fn cipoletti_weir_discharge(crest_width: Length, head: Length) -> Result<Dis
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::rectangular_weir_discharge;
-/// use kp_irigasi::units::Length;
+/// use imaji_kp_hydraulics::structures::rectangular_weir_discharge;
+/// use imaji_kp_hydraulics::units::Length;
 ///
 /// // b = 0.60 m, H = 0.15 m, two end contractions:
 /// // b_eff = 0.60 - 0.1 × 2 × 0.15 = 0.57 m
 /// // Q = 1.84 × 0.57 × 0.15^1.5 = 1.0488 × 0.0580948 = 0.0609298 m³/s
 /// let q = rectangular_weir_discharge(Length::new(0.60)?, Length::new(0.15)?, 2)?;
 /// assert!((q.as_litres_per_second() - 60.9298).abs() < 1e-3);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn rectangular_weir_discharge(
     crest_width: Length,
@@ -418,15 +418,15 @@ pub fn rectangular_weir_discharge(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::v_notch_weir_discharge;
-/// use kp_irigasi::units::{Length, Ratio};
+/// use imaji_kp_hydraulics::structures::v_notch_weir_discharge;
+/// use imaji_kp_hydraulics::units::{Length, Ratio};
 ///
 /// // 90 degree notch, Cd = 0.60, H = 0.20 m
 /// // (8/15) × 0.60 × sqrt(19.62) × tan(45°) = 0.32 × 4.42945 = 1.41742
 /// // Q = 1.417419 × 0.20^2.5 = 1.417419 × 0.0178885 = 0.0253556 m³/s
 /// let q = v_notch_weir_discharge(Ratio::new(0.60)?, 90.0, Length::new(0.20)?)?;
 /// assert!((q.as_litres_per_second() - 25.3556).abs() < 1e-3);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn v_notch_weir_discharge(
     discharge_coefficient: Ratio,
@@ -491,8 +491,8 @@ pub struct HydraulicJump {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::hydraulic_jump;
-/// use kp_irigasi::units::{Length, Velocity};
+/// use imaji_kp_hydraulics::structures::hydraulic_jump;
+/// use imaji_kp_hydraulics::units::{Length, Velocity};
 ///
 /// // y1 = 0.20 m, V1 = 4.00 m/s
 /// // Fr1 = 4.00 / sqrt(9.81 × 0.20) = 4.00 / 1.40071 = 2.85570
@@ -503,7 +503,7 @@ pub struct HydraulicJump {
 /// let jump = hydraulic_jump(Length::new(0.20)?, Velocity::new(4.00)?)?;
 /// assert!((jump.sequent_depth.value() - 0.7138768).abs() < 1e-7);
 /// assert!((jump.energy_loss.value() - 0.2376095).abs() < 1e-7);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn hydraulic_jump(initial_depth: Length, initial_velocity: Velocity) -> Result<HydraulicJump> {
     let y1 = positive("initial_depth", initial_depth.value())?;
@@ -663,8 +663,8 @@ impl fmt::Display for StraightDrop {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::structures::{straight_drop, DEFAULT_JUMP_LENGTH_FACTOR};
-/// use kp_irigasi::units::Length;
+/// use imaji_kp_hydraulics::structures::{straight_drop, DEFAULT_JUMP_LENGTH_FACTOR};
+/// use imaji_kp_hydraulics::units::Length;
 ///
 /// // q = 0.60 m³/s per m, dz = 1.00 m
 /// // D = 0.36 / (9.81 × 1.0) = 0.0366972
@@ -678,7 +678,7 @@ impl fmt::Display for StraightDrop {
 /// assert!((drop.nappe_length.value() - 1.761649).abs() < 1e-6);
 /// assert!((drop.toe_depth.value() - 0.1325449).abs() < 1e-7);
 /// assert!((drop.sequent_depth.value() - 0.6800786).abs() < 1e-7);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn straight_drop(
     unit_discharge: f64,

@@ -215,11 +215,11 @@ impl Discharge {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::units::Discharge;
+    /// use imaji_kp_hydraulics::units::Discharge;
     ///
     /// let q = Discharge::from_litres_per_second(250.0)?;
     /// assert!((q.value() - 0.25).abs() < 1e-12);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub fn from_litres_per_second(litres_per_second: f64) -> Result<Self> {
         Self::new(non_negative("litres_per_second", litres_per_second)? / 1000.0)
@@ -252,12 +252,12 @@ impl DepthRate {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::units::DepthRate;
+    /// use imaji_kp_hydraulics::units::DepthRate;
     ///
     /// // 1 mm/day over 1 ha is 10 m³/day, that is 0.11574 l/s.
     /// let unit = DepthRate::new(1.0)?.as_litres_per_second_per_hectare();
     /// assert!((unit - 0.115_740_74).abs() < 1e-8);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub fn as_litres_per_second_per_hectare(self) -> f64 {
         self.0 / MM_PER_DAY_TO_LPS_PER_HA
@@ -273,13 +273,13 @@ impl DepthRate {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::units::{DepthRate, Hectares};
+    /// use imaji_kp_hydraulics::units::{DepthRate, Hectares};
     ///
     /// // 1.2 mm/day over 500 ha: 1.2 / 8.64 = 0.13889 l/s/ha, times 500 ha
     /// // is 69.44 l/s.
     /// let q = DepthRate::new(1.2)?.over_area(Hectares::new(500.0)?)?;
     /// assert!((q.as_litres_per_second() - 69.444_44).abs() < 1e-4);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub fn over_area(self, area: Hectares) -> Result<Discharge> {
         Discharge::new(self.as_litres_per_second_per_hectare() * area.value() / 1000.0)
@@ -308,12 +308,12 @@ impl WaterLayer {
     /// # Examples
     ///
     /// ```
-    /// use kp_irigasi::units::{Days, WaterLayer};
+    /// use imaji_kp_hydraulics::units::{Days, WaterLayer};
     ///
     /// // 50 mm spread over 30 days is 1.667 mm/day.
     /// let wlr = WaterLayer::new(50.0)?.spread_over(Days::new(30.0)?)?;
     /// assert!((wlr.value() - 1.666_667).abs() < 1e-6);
-    /// # Ok::<(), kp_irigasi::KpError>(())
+    /// # Ok::<(), imaji_kp_hydraulics::KpError>(())
     /// ```
     pub fn spread_over(self, days: Days) -> Result<DepthRate> {
         DepthRate::new(self.0 / days.value())

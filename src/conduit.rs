@@ -306,9 +306,9 @@ pub struct ConduitInput {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::conduit::{conduit_head_loss, Barrel, ConduitInput, LossCoefficients};
-/// use kp_irigasi::uniform_flow::VelocityLimits;
-/// use kp_irigasi::units::{Discharge, Length, ManningN};
+/// use imaji_kp_hydraulics::conduit::{conduit_head_loss, Barrel, ConduitInput, LossCoefficients};
+/// use imaji_kp_hydraulics::uniform_flow::VelocityLimits;
+/// use imaji_kp_hydraulics::units::{Discharge, Length, ManningN};
 ///
 /// // D = 0.80 m, Q = 0.60 m³/s, L = 24 m, n = 0.014, k_in = 0.5, k_out = 1.0
 /// // A = pi × 0.64 / 4 = 0.502655 m², V = 0.60 / 0.502655 = 1.19366 m/s
@@ -325,7 +325,7 @@ pub struct ConduitInput {
 ///     velocity_limits: VelocityLimits::from_range(0.6, 3.0)?,
 /// })?;
 /// assert!((loss.total_head_loss.value() - 0.1662366).abs() < 1e-7);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn conduit_head_loss(input: &ConduitInput) -> Result<ConduitHeadLoss> {
     let q = positive("discharge", input.discharge.value())?;
@@ -432,9 +432,9 @@ pub struct BarrelSizing {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::conduit::{size_circular_barrel, BarrelSizingOptions, LossCoefficients};
-/// use kp_irigasi::uniform_flow::VelocityLimits;
-/// use kp_irigasi::units::{Discharge, Length, ManningN};
+/// use imaji_kp_hydraulics::conduit::{size_circular_barrel, BarrelSizingOptions, LossCoefficients};
+/// use imaji_kp_hydraulics::uniform_flow::VelocityLimits;
+/// use imaji_kp_hydraulics::units::{Discharge, Length, ManningN};
 ///
 /// let sizing = size_circular_barrel(
 ///     Discharge::new(0.60)?,
@@ -449,7 +449,7 @@ pub struct BarrelSizing {
 /// // allowance of 0.20 m is met by something a little smaller.
 /// assert!(sizing.diameter.value() < 0.80);
 /// assert!(sizing.head_loss.total_head_loss.value() <= 0.20);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 #[allow(clippy::too_many_arguments)]
 pub fn size_circular_barrel(

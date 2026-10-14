@@ -1,14 +1,14 @@
 [package]
-name = "kp-irigasi"
+name = "imaji-kp-hydraulics"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
 license = "MIT"
-repository = "https://github.com/saimskywalker/kp-irigasi"
-authors = ["Setyo Aji Imam Maliki <setyoaji98@gmail.com>"]
+repository = "https://github.com/saimskywalker/irigasi-imaji-kp-hydraulics"
+authors = ["Setyo Aji Imam Maliki <15120878+saimskywalker@users.noreply.github.com>"]
 description = "Indonesian irrigation design calculations (Kriteria Perencanaan KP series) in strict SI units"
 readme = "README.md"
-keywords = ["irrigation", "hydraulics", "civil-engineering", "indonesia"]
+keywords = ["irrigation", "irigasi", "hydraulics", "civil-engineering", "indonesia"]
 categories = ["science", "mathematics"]
 
 [lints.rust]
