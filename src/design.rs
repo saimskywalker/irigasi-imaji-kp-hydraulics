@@ -85,8 +85,8 @@ pub struct EfficientTrapezoid {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::design::efficient_trapezoid;
-/// use kp_irigasi::units::SideSlope;
+/// use imaji_kp_hydraulics::design::efficient_trapezoid;
+/// use imaji_kp_hydraulics::units::SideSlope;
 ///
 /// // m = 1.5: sqrt(1 + 2.25) = 1.802776
 /// // b/h = 2 × (1.802776 - 1.5) = 0.605551
@@ -94,7 +94,7 @@ pub struct EfficientTrapezoid {
 /// let e = efficient_trapezoid(SideSlope::new(1.5)?)?;
 /// assert!((e.bed_width_depth_ratio - 0.605551).abs() < 1e-6);
 /// assert!((e.area_coefficient - 2.105551).abs() < 1e-6);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn efficient_trapezoid(side_slope: SideSlope) -> Result<EfficientTrapezoid> {
     let m = non_negative("side_slope", side_slope.value())?;
@@ -329,10 +329,10 @@ impl fmt::Display for ChannelDesign {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::design::{design_channel, ChannelDesignInput, SectionProportion};
-/// use kp_irigasi::freeboard::FreeboardTable;
-/// use kp_irigasi::uniform_flow::{NormalDepthOptions, VelocityLimits};
-/// use kp_irigasi::units::{Discharge, ManningN, SideSlope, Slope};
+/// use imaji_kp_hydraulics::design::{design_channel, ChannelDesignInput, SectionProportion};
+/// use imaji_kp_hydraulics::freeboard::FreeboardTable;
+/// use imaji_kp_hydraulics::uniform_flow::{NormalDepthOptions, VelocityLimits};
+/// use imaji_kp_hydraulics::units::{Discharge, ManningN, SideSlope, Slope};
 ///
 /// let freeboard = FreeboardTable::default();
 /// let design = design_channel(&ChannelDesignInput {
@@ -350,7 +350,7 @@ impl fmt::Display for ChannelDesign {
 ///
 /// assert!(design.all_checks_pass());
 /// assert!((design.computed_discharge.value() - 1.5).abs() < 1e-4);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn design_channel(input: &ChannelDesignInput<'_>) -> Result<ChannelDesign> {
     let q = positive("design_discharge", input.design_discharge.value())?;

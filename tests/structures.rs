@@ -3,19 +3,19 @@
 //! Every expected value is hand calculated in the comment above the assertion,
 //! using g = 9.81 m/s². Units: m, m², m/s, m³/s.
 
-use kp_irigasi::conduit::{
+use imaji_kp_hydraulics::conduit::{
     conduit_head_loss, size_circular_barrel, Barrel, BarrelSizingOptions, ConduitInput,
     LossCoefficients,
 };
-use kp_irigasi::error::KpError;
-use kp_irigasi::structures::{
+use imaji_kp_hydraulics::error::KpError;
+use imaji_kp_hydraulics::structures::{
     broad_crested_weir_discharge, cipoletti_weir_discharge, free_orifice_discharge, hydraulic_jump,
     rectangular_weir_discharge, rehbock_coefficient, sharp_crested_weir_discharge,
     sluice_gate_discharge, straight_drop, submerged_orifice_discharge, v_notch_weir_discharge,
     DEFAULT_JUMP_LENGTH_FACTOR,
 };
-use kp_irigasi::uniform_flow::VelocityLimits;
-use kp_irigasi::units::{Area, Discharge, Length, ManningN, Ratio};
+use imaji_kp_hydraulics::uniform_flow::VelocityLimits;
+use imaji_kp_hydraulics::units::{Area, Discharge, Length, ManningN, Ratio};
 
 fn close(actual: f64, expected: f64, tolerance: f64) -> bool {
     (actual - expected).abs() <= tolerance
@@ -204,7 +204,7 @@ fn hydraulic_jump_matches_hand_calculation() {
     // dE = (0.5138768)³ / (4 × 0.20 × 0.7138768) = 0.2376095 m
     let jump = hydraulic_jump(
         Length::new(0.20).unwrap(),
-        kp_irigasi::units::Velocity::new(4.00).unwrap(),
+        imaji_kp_hydraulics::units::Velocity::new(4.00).unwrap(),
     )
     .unwrap();
     assert!(close(jump.initial_froude, 2.855_686_2, 1e-7));
@@ -226,7 +226,7 @@ fn no_jump_forms_in_subcritical_flow() {
     // solve and the function says so rather than returning a nonsense depth.
     let result = hydraulic_jump(
         Length::new(1.00).unwrap(),
-        kp_irigasi::units::Velocity::new(0.50).unwrap(),
+        imaji_kp_hydraulics::units::Velocity::new(0.50).unwrap(),
     );
     assert!(matches!(
         result,
@@ -464,7 +464,8 @@ fn a_barrel_sized_for_head_loss_can_be_too_slow_for_silt() {
         .head_loss
         .checks
         .iter()
-        .any(|c| c.name == "minimum velocity" && c.status == kp_irigasi::check::CheckStatus::Fail));
+        .any(|c| c.name == "minimum velocity"
+            && c.status == imaji_kp_hydraulics::check::CheckStatus::Fail));
 }
 
 #[test]

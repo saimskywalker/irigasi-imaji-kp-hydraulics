@@ -1,4 +1,4 @@
-# kp-irigasi
+# imaji-kp-hydraulics — Rust crate for irrigation hydraulics (Kriteria Perencanaan KP-01–07)
 
 Irrigation design calculations following the Indonesian Kriteria Perencanaan
 (KP) irrigation planning criteria, KP-01 to KP-07, published by the Direktorat
@@ -25,8 +25,9 @@ the arithmetic can be reviewed, the assumptions are written down, and a change
 that breaks a result fails loudly.
 
 For steel and concrete members, load combinations and seismic base shear, see
-[sni-struct](https://github.com/saimskywalker/sni-struct). Structural design and
-hydraulic design are different enough in practice that they are kept apart.
+[imaji-structural-design](https://github.com/saimskywalker/sni-imaji-structural-design).
+Structural design and hydraulic design are different enough in practice that
+they are kept apart.
 
 ## Disclaimer
 
@@ -81,13 +82,20 @@ cannot travel silently into a design.
 
 ## Usage
 
-```rust
-use kp_irigasi::design::{design_channel, ChannelDesignInput, SectionProportion};
-use kp_irigasi::freeboard::FreeboardTable;
-use kp_irigasi::uniform_flow::{NormalDepthOptions, VelocityLimits};
-use kp_irigasi::units::{Discharge, ManningN, SideSlope, Slope};
+Not yet published to crates.io; depend on it from git:
 
-fn main() -> Result<(), kp_irigasi::KpError> {
+```toml
+[dependencies]
+imaji-kp-hydraulics = { git = "https://github.com/saimskywalker/irigasi-imaji-kp-hydraulics" }
+```
+
+```rust
+use imaji_kp_hydraulics::design::{design_channel, ChannelDesignInput, SectionProportion};
+use imaji_kp_hydraulics::freeboard::FreeboardTable;
+use imaji_kp_hydraulics::uniform_flow::{NormalDepthOptions, VelocityLimits};
+use imaji_kp_hydraulics::units::{Discharge, ManningN, SideSlope, Slope};
+
+fn main() -> Result<(), imaji_kp_hydraulics::KpError> {
     let freeboard = FreeboardTable::default();
     let design = design_channel(&ChannelDesignInput {
         design_discharge: Discharge::new(1.85)?,
@@ -130,9 +138,9 @@ values, and every check with its pass or fail. Each result type implements
 ## Examples
 
 ```text
-cargo run -p kp-irigasi --example trapezoidal_channel
-cargo run -p kp-irigasi --example intake_requirement
-cargo run -p kp-irigasi --example drop_and_siphon
+cargo run -p imaji-kp-hydraulics --example trapezoidal_channel
+cargo run -p imaji-kp-hydraulics --example intake_requirement
+cargo run -p imaji-kp-hydraulics --example drop_and_siphon
 ```
 
 `trapezoidal_channel` sizes a secondary canal three ways and compares them.

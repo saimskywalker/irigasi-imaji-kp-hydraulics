@@ -3,20 +3,22 @@
 //! Run with:
 //!
 //! ```text
-//! cargo run -p kp-irigasi --example drop_and_siphon
+//! cargo run -p imaji-kp-hydraulics --example drop_and_siphon
 //! ```
 //!
 //! The loss coefficients and the permissible velocities are project data read
 //! from KP-04. This example is a calculation aid, not a design.
 
-use kp_irigasi::conduit::{
+use imaji_kp_hydraulics::conduit::{
     conduit_head_loss, size_circular_barrel, Barrel, BarrelSizingOptions, ConduitInput,
     LossCoefficients,
 };
-use kp_irigasi::structures::{cipoletti_weir_discharge, straight_drop, DEFAULT_JUMP_LENGTH_FACTOR};
-use kp_irigasi::uniform_flow::VelocityLimits;
-use kp_irigasi::units::{Discharge, Length, ManningN};
-use kp_irigasi::KpError;
+use imaji_kp_hydraulics::structures::{
+    cipoletti_weir_discharge, straight_drop, DEFAULT_JUMP_LENGTH_FACTOR,
+};
+use imaji_kp_hydraulics::uniform_flow::VelocityLimits;
+use imaji_kp_hydraulics::units::{Discharge, Length, ManningN};
+use imaji_kp_hydraulics::KpError;
 
 fn main() -> Result<(), KpError> {
     // --- Straight drop on a secondary canal --------------------------------

@@ -59,13 +59,13 @@ pub const DEFAULT_RICE_RAINFALL_COEFFICIENT: f64 = 0.7;
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::{DepthRate, Ratio};
-/// use kp_irigasi::water::crop_water_requirement;
+/// use imaji_kp_hydraulics::units::{DepthRate, Ratio};
+/// use imaji_kp_hydraulics::water::crop_water_requirement;
 ///
 /// // kc = 1.10, Eto = 4.60 mm/day: Etc = 5.06 mm/day
 /// let etc = crop_water_requirement(Ratio::new(1.10)?, DepthRate::new(4.60)?)?;
 /// assert!((etc.value() - 5.06).abs() < 1e-12);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn crop_water_requirement(
     crop_coefficient: Ratio,
@@ -94,8 +94,8 @@ pub fn crop_water_requirement(
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::{Days, WaterLayer};
-/// use kp_irigasi::water::{effective_rainfall, DEFAULT_RICE_RAINFALL_COEFFICIENT};
+/// use imaji_kp_hydraulics::units::{Days, WaterLayer};
+/// use imaji_kp_hydraulics::water::{effective_rainfall, DEFAULT_RICE_RAINFALL_COEFFICIENT};
 ///
 /// // R80 = 90 mm over a 15 day half month, coefficient 0.7:
 /// // Re = 0.7 × 90 / 15 = 4.2 mm/day
@@ -105,7 +105,7 @@ pub fn crop_water_requirement(
 ///     DEFAULT_RICE_RAINFALL_COEFFICIENT,
 /// )?;
 /// assert!((re.value() - 4.2).abs() < 1e-12);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn effective_rainfall(
     dependable_rainfall: WaterLayer,
@@ -161,8 +161,8 @@ pub struct FieldRequirement {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::DepthRate;
-/// use kp_irigasi::water::net_field_requirement;
+/// use imaji_kp_hydraulics::units::DepthRate;
+/// use imaji_kp_hydraulics::water::net_field_requirement;
 ///
 /// // Etc = 5.06, P = 2.00, WLR = 1.67, Re = 4.20 mm/day
 /// // NFR = 5.06 + 2.00 + 1.67 - 4.20 = 4.53 mm/day
@@ -173,7 +173,7 @@ pub struct FieldRequirement {
 ///     DepthRate::new(4.20)?,
 /// )?;
 /// assert!((nfr.net_field_requirement.value() - 4.53).abs() < 1e-12);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn net_field_requirement(
     crop_water_requirement: DepthRate,
@@ -237,8 +237,8 @@ pub struct LandPreparation {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::{Days, DepthRate, WaterLayer};
-/// use kp_irigasi::water::land_preparation_requirement;
+/// use imaji_kp_hydraulics::units::{Days, DepthRate, WaterLayer};
+/// use imaji_kp_hydraulics::water::land_preparation_requirement;
 ///
 /// // Eo = 5.5 mm/day, P = 2.0 mm/day, T = 30 days, S = 250 mm
 /// // M = 7.5, k = 7.5 × 30 / 250 = 0.9
@@ -251,7 +251,7 @@ pub struct LandPreparation {
 /// )?;
 /// assert!((lp.k - 0.9).abs() < 1e-12);
 /// assert!((lp.requirement.value() - 12.638).abs() < 1e-3);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn land_preparation_requirement(
     open_water_evaporation: DepthRate,
@@ -464,8 +464,8 @@ impl fmt::Display for DiversionRequirement {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::{DepthRate, Hectares};
-/// use kp_irigasi::water::{diversion_requirement, EfficiencyChain};
+/// use imaji_kp_hydraulics::units::{DepthRate, Hectares};
+/// use imaji_kp_hydraulics::water::{diversion_requirement, EfficiencyChain};
 ///
 /// // NFR = 1.30 mm/day, efficiencies 0.80 / 0.90 / 0.90, area 1 250 ha
 /// // At tertiary offtake: 1.30 / 0.80 = 1.625 mm/day
@@ -480,7 +480,7 @@ impl fmt::Display for DiversionRequirement {
 /// )?;
 /// assert!((dr.at_intake.value() - 2.006_17).abs() < 1e-5);
 /// assert!((dr.intake_discharge.as_litres_per_second() - 290.25).abs() < 1e-2);
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn diversion_requirement(
     net_field_requirement: DepthRate,
@@ -616,8 +616,8 @@ pub struct ShortSupply {
 /// # Examples
 ///
 /// ```
-/// use kp_irigasi::units::{Discharge, Hectares};
-/// use kp_irigasi::water::{assess_short_supply, RotationCriteria, SupplyMode};
+/// use imaji_kp_hydraulics::units::{Discharge, Hectares};
+/// use imaji_kp_hydraulics::water::{assess_short_supply, RotationCriteria, SupplyMode};
 ///
 /// // Available 0.42 m³/s against a requirement of 0.60 m³/s: k = 0.70
 /// // Relative area = 0.70 × 800 ha = 560 ha, and k = 0.70 calls for
@@ -631,7 +631,7 @@ pub struct ShortSupply {
 /// assert!((s.k_factor - 0.70).abs() < 1e-12);
 /// assert!((s.relative_area.value() - 560.0).abs() < 1e-9);
 /// assert_eq!(s.mode, SupplyMode::Rotation { groups: 2 });
-/// # Ok::<(), kp_irigasi::KpError>(())
+/// # Ok::<(), imaji_kp_hydraulics::KpError>(())
 /// ```
 pub fn assess_short_supply(
     available: Discharge,
