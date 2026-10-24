@@ -159,4 +159,4 @@ jagaan (freeboard), golongan (rotation group).
 
 ## Licence
 
-MIT or Apache-2.0, at your option.
+MIT. See [LICENSE-MIT](LICENSE-MIT).
